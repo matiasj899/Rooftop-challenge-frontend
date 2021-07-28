@@ -8,9 +8,15 @@ const images: Array<any> = [
   {
     original: "./images/banner_2.jpg",
   },
+  {
+    original: "./images/banner_3.jpg",
+  },
 ];
 const Banner = () => {
-  return <ImageGallery items={images}></ImageGallery>;
+  return (<div>
+<ImageGallery  items={images} ></ImageGallery>
+  </div>)
+  
 };
 
 export default Banner;

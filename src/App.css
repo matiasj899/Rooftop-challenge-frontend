@@ -1,8 +1,10 @@
+
 * {
     margin: 0;
     border: 0;
     padding: 0;
 }
+@import "~react-image-gallery/styles/css/image-gallery.css";
 
 h1, h2, p, nav, li, a {
     font-family: 'Mulish', sans-serif;
