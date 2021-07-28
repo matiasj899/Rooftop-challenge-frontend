@@ -13,7 +13,7 @@ const Header = () => {
               exact
               to="/"
               activeStyle={{
-                borderBottom: "5px solid white",
+                borderBottom: "5px solid #252525",
               }}
             >
               Inicio
@@ -23,7 +23,7 @@ const Header = () => {
             <NavLink
               to="/catalogo"
               activeStyle={{
-                borderBottom: "5px solid white",
+                borderBottom: "5px solid #252525",
               }}
             >
               Catalogo

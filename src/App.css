@@ -8,6 +8,7 @@ h1, h2, p, nav, li, a {
     font-family: 'Mulish', sans-serif;
     text-decoration: none;
     list-style-type: none;
+    color: #252525;
 }
 
 header {
@@ -46,6 +47,6 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: white;
+  
     font-size: large;
 }
