@@ -1,8 +1,51 @@
-*{
+* {
     margin: 0;
     border: 0;
     padding: 0;
 }
-header{width: 100%;
+
+h1, h2, p, nav, li, a {
+    font-family: 'Mulish', sans-serif;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+header {
+    display: flex;
+    width: 100%;
     background-color: #ff642a;
-    height: 100px;}
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo-cn {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+}
+
+header .logo-cn img {
+    width: 180px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+header nav {
+    margin: 20px;
+}
+
+header nav ul {
+    display: flex;
+}
+
+header nav ul li {
+    margin: 10px;
+}
+
+header nav ul li a {
+    color: white;
+    font-size: large;
+}

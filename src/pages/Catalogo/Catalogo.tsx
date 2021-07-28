@@ -1,6 +1,11 @@
-import React from 'react'
-const Catalogo=()=>{
-    return(<h1>Catalogo</h1>)
-}
+import React from "react";
+import Header from "../../components/Header";
+const Catalogo = () => {
+  return (
+    <>
+      <Header></Header>
+    </>
+  );
+};
 
-export default Catalogo
+export default Catalogo;
