@@ -14,7 +14,7 @@ const images: Array<any> = [
 ];
 const Banner = () => {
   return (<div>
-<ImageGallery  items={images} ></ImageGallery>
+<ImageGallery showFullscreenButton={false} showPlayButton={false} autoPlay={true} showBullets={true} showThumbnails={false} items={images} ></ImageGallery>
   </div>)
   
 };
