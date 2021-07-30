@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Home.css'
 import clienteAxios from "../../config/axios";
 
 import Header from "../../components/Header";
@@ -42,7 +43,11 @@ const Home = () => {
     <>
       <Header></Header>
       <Banner></Banner>
+      <h2>Destacados</h2>
+      <div id="randomItems-cn">
       {showRandomItems}
+      </div>
+     
     </>
   );
 };

@@ -1,0 +1,25 @@
+#randomItems-cn{
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+}
+.randomItems{
+    margin: 0 8px 16px;
+    width: 224px;
+    height: 224px;
+    
+}
+.randomItems img{
+    width: 224px;
+    height: 224px;
+}
+.randomItems h2{
+    font-size: medium;
+
+}
+.randomItems p.sale-price{
+    color: seagreen;
+
+}
