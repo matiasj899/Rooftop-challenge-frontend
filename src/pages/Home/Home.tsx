@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import Banner from "./Banner";
 import _, { shuffle } from "underscore";
 import RandomItems from "./RandomItems";
+import Footer from "../../components/Footer";
 const Home = () => {
   interface Item {
     id: string;
@@ -43,11 +44,11 @@ const Home = () => {
     <>
       <Header></Header>
       <Banner></Banner>
-      <h2>Destacados</h2>
+      <h2 id='subtitle'>Destacados</h2>
       <div id="randomItems-cn">
       {showRandomItems}
       </div>
-     
+     <Footer></Footer>
     </>
   );
 };

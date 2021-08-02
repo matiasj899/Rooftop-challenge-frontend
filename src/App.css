@@ -52,3 +52,27 @@ header nav ul li a {
   
     font-size: large;
 }
+#footer{
+    background-color: rgba(51,51,51,.1);
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    font-size: x-small;
+    justify-content: center;
+}
+#footer .footer-cn{
+ margin:10px;
+}
+#footer div ul{
+    
+    display: flex;
+    flex-direction: row;
+}
+#footer div ul li{
+    
+    margin: 5px;
+}
+#footer p{
+    
+    margin: 5px;
+}
