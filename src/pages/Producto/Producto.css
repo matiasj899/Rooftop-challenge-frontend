@@ -1,0 +1,20 @@
+#productDetail-cn{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+#productDetail-cn .productDetail-img-info-cn{
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid rgba(51,51,51,.1);
+} 
+#productDetail-cn .productDetail-img-info-cn .productDetail-info-cn{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    border: 1px solid rgba(51,51,51,.1);
+    border-radius: 5px;
+} 
+.before-price{
+    text-decoration: line-through;
+}
