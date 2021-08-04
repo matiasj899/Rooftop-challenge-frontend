@@ -6,7 +6,7 @@
 }
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-h1, h2, p, nav, li, a {
+h1, h2,h3,h4,h5, p, nav, li, a {
     font-family: 'Mulish', sans-serif;
     text-decoration: none;
     list-style-type: none;

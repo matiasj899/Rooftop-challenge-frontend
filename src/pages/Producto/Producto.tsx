@@ -15,19 +15,34 @@ const Producto = (props: any) => {
     price: "",
     offer: { price: null },
   };
+  const Question = [{
+    answer: "",
+    customer_name: "",
+    question: "",
+    sent_at: "",
+  }];
+
   const [products, setProducts] = useState(Product);
+  const [questions, setQuestions] = useState(Question);
   useEffect(() => {
     clienteAxios
       .get(`/items/${productId}`)
       .then((res) => {
-        console.log(res);
         setProducts({ ...Product, ...res.data });
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [productId]);
-  console.log(products);
+    clienteAxios
+      .get(`/questions/?item_id=${productId}`)
+      .then((res) => {
+        console.log(res.data);
+        setQuestions(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   let images: any = [];
   const newImagesArray = products.images.forEach((image) =>
@@ -41,6 +56,17 @@ const Producto = (props: any) => {
       </tr>
     );
   });
+  const questionAndAnswers = questions.map((question) => {
+    const date=question.sent_at.slice(0,10)
+    return (<div className="user-question-cn" key={question.customer_name}>
+      <p>{question.question} -<span>{question.customer_name}</span></p>
+    <div className="user-answer">
+      <div className="user-answer-icon-cn"> <img src="/images/caret-right-solid.svg"></img></div>
+     <p>{question.answer} <span className='date'>{date}</span></p>
+    </div>
+  </div>)
+  });
+ 
   return (
     <>
       <Header></Header>
@@ -68,16 +94,39 @@ const Producto = (props: any) => {
                   </p>
                 </div>
               ) : (
-                <p>{products.price}</p>
+                <p>{products.price} </p>
               )}
               <button>Comprar ahora</button>
             </div>
           </div>
           <div className="features-cn">
-            <h3>Caracteristicas principales</h3>
+            <h3>Características principales</h3>
             <table>
               <tbody>{features}</tbody>
             </table>
+          </div>
+          <div className="questions-cn">
+            <h4>Preguntas y respuestas</h4>
+            <form>
+              <label>
+                Email:
+                <input type="email"></input>
+              </label>
+              <label>
+                Preguntale al vendedor:
+                <textarea
+                  placeholder="Preguntale al vendedor
+"
+                ></textarea>
+              </label>
+              <button>Enviar</button>
+            </form>
+          </div>
+          <div className="answers-cn">
+            <h5>Últimas realizadas</h5>
+            <div className="user-question-answer-cn">
+             {questions.length>0? questionAndAnswers :<p>Aun no hay preguntas, se el primero.</p>}
+            </div>
           </div>
         </div>
       </div>

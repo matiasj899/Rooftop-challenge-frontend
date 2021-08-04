@@ -24,6 +24,7 @@
     border: 1px solid rgba(51,51,51,.1);
     border-radius: 5px;
     flex-direction: column;
+    padding: 20px;
 } 
 .before-price{
     text-decoration: line-through;
@@ -31,9 +32,12 @@
 .sale-price{
     color: seagreen;
 }
-.features-cn{
+.features-cn, .questions-cn{
     font-family: 'Mulish', sans-serif;
     margin: 20px;
+    margin: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,.1);
 }
 table {
     border-radius: 5px;
@@ -53,4 +57,44 @@ table {
   h3{
       margin-bottom: 10px;
   }
-  
+  .questions-cn, form, label {
+    display: flex;
+    flex-direction: column;
+  }
+  .questions-cn form input, textarea {
+    border: 1px solid rgba(0,0,0,.1);
+  }
+  .answers-cn{
+      margin: 20px;
+  }
+  .answers-cn h5{
+      margin-bottom: 20px;
+      
+    font-size: medium;
+  }
+ .answers-cn h5 p{
+     
+    font-family: 'Mulish', sans-serif;
+ }
+ .answers-cn .user-question-answer-cn .user-question-cn{
+    font-family: 'Mulish', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+ }
+ .answers-cn .user-question-answer-cn .user-question-cn .user-answer{
+    display: flex;
+    flex-direction: row;
+    margin-left: 12px;
+ }
+ .answers-cn .user-question-answer-cn .user-question-cn .user-answer p{
+    color: rgba(0,0,0,.45);
+ }
+ .answers-cn .user-question-answer-cn .user-question-cn .user-answer .user-answer-icon-cn{
+    width: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .answers-cn .user-question-answer-cn .user-question-cn .user-answer  .date{
+    font-size: small;
+ }
