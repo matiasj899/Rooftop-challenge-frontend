@@ -3,7 +3,9 @@ import clienteAxios from "../../config/axios";
 import Header from "../../components/Header";
 
 import ImageGallery from "react-image-gallery";
+import { useForm } from "react-hook-form";
 import "./Producto.css";
+import Footer from "../../components/Footer";
 const Producto = (props: any) => {
   const productId = props.match.params.id;
   const Product = {
@@ -15,15 +17,39 @@ const Producto = (props: any) => {
     price: "",
     offer: { price: null },
   };
-  const Question = [{
-    answer: "",
-    customer_name: "",
-    question: "",
-    sent_at: "",
-  }];
+  const Question = [
+    {
+      answer: "",
+      customer_name: "",
+      question: "",
+      sent_at: "",
+    },
+  ];
 
   const [products, setProducts] = useState(Product);
   const [questions, setQuestions] = useState(Question);
+  const [inputError, setInputError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: object) => {
+    clienteAxios
+      .post("/questions", data)
+      .then((res) => {
+        if (res.status === 201) {
+          setSuccessMessage(true);
+          reset({ email: "" });
+          setTimeout(() => {
+            setSuccessMessage(false);
+          }, 2000);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
   useEffect(() => {
     clienteAxios
       .get(`/items/${productId}`)
@@ -57,16 +83,25 @@ const Producto = (props: any) => {
     );
   });
   const questionAndAnswers = questions.map((question) => {
-    const date=question.sent_at.slice(0,10)
-    return (<div className="user-question-cn" key={question.customer_name}>
-      <p>{question.question} -<span>{question.customer_name}</span></p>
-    <div className="user-answer">
-      <div className="user-answer-icon-cn"> <img src="/images/caret-right-solid.svg"></img></div>
-     <p>{question.answer} <span className='date'>{date}</span></p>
-    </div>
-  </div>)
+    const date = question.sent_at.slice(0, 10);
+    return (
+      <div className="user-question-cn" key={question.customer_name}>
+        <p>
+          {question.question} -<span>{question.customer_name}</span>
+        </p>
+        <div className="user-answer">
+          <div className="user-answer-icon-cn">
+            {" "}
+            <img src="/images/caret-right-solid.svg"></img>
+          </div>
+          <p>
+            {question.answer} <span className="date">{date}</span>
+          </p>
+        </div>
+      </div>
+    );
   });
- 
+
   return (
     <>
       <Header></Header>
@@ -107,29 +142,63 @@ const Producto = (props: any) => {
           </div>
           <div className="questions-cn">
             <h4>Preguntas y respuestas</h4>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <label>
                 Email:
-                <input type="email"></input>
+                <input
+                  className={errors.email ? "error" : ""}
+                  type="email"
+                  {...register("email", { required: true })}
+                  placeholder='example@.com'
+                ></input>
+                {errors.email && (
+                  <p className="error">Ingrese un email valido.</p>
+                )}
               </label>
-              <label>
-                Preguntale al vendedor:
-                <textarea
-                  placeholder="Preguntale al vendedor
+              <div className="textArea-and-btn">
+                <label>
+                  Pregúntale al vendedor
+                  <textarea
+                    className={errors.textarea ? "error" : ""}
+                    placeholder="Escribí tu pregunta...
+                    
 "
-                ></textarea>
-              </label>
-              <button>Enviar</button>
+                    {...register("textarea", {
+                      required: true,
+                      minLength: 10,
+                      maxLength: 500,
+                    })}
+                  ></textarea>
+                  {errors.textarea && (
+                    <p className="error">
+                      Su pregunta debe tener entre 10 y 500 caracteres.
+                    </p>
+                  )}
+                </label>
+                <button type="submit">Enviar</button>
+              </div>
             </form>
+            {successMessage ? (
+              <div className="success-general-cn">
+                <div className="successMessage">
+                  <p>Pregunta enviada correctamente.</p>
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="answers-cn">
             <h5>Últimas realizadas</h5>
             <div className="user-question-answer-cn">
-             {questions.length>0? questionAndAnswers :<p>Aun no hay preguntas, se el primero.</p>}
+              {questions.length > 0 ? (
+                questionAndAnswers
+              ) : (
+                <p>Aun no hay preguntas, se el primero.</p>
+              )}
             </div>
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };
