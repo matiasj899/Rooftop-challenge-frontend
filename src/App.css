@@ -6,7 +6,7 @@
 }
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-h1, h2,h3,h4,h5, p, nav, li, a {
+h1, h2,h3,h4,h5, p, nav, li, a ,button{
     font-family: 'Mulish', sans-serif;
     text-decoration: none;
     list-style-type: none;
@@ -16,7 +16,7 @@ h1, h2,h3,h4,h5, p, nav, li, a {
 header {
     display: flex;
     width: 100%;
-    background-color: #ff642a;
+    background-color: #ff642ac7;
     height: 100px;
     align-items: center;
     justify-content: space-between;

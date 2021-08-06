@@ -36,7 +36,7 @@ const Producto = (props: any) => {
   const [inputError, setInputError] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-  const [seconds, setSeconds] = useState(Number);
+  const [hour, setHour] = useState(Number);
   const {
     register,
     handleSubmit,
@@ -64,22 +64,7 @@ const Producto = (props: any) => {
         }
       });
   };
-  async function  setTime(){
-    if(products.offer!==null){
-  
-      const getTodayDate=await dayjs(new Date())
-    const now=await dayjs(getTodayDate)
-    
-    const productOfferExpires=await dayjs(products.offer.expires_at)
-    
-    const hour= await productOfferExpires.diff(getTodayDate,'hour')
-    const second=await productOfferExpires.diff(getTodayDate,'second')
-    console.log(second)
-    
-    
-  
-    }
-  }
+
   useEffect(() => {
     clienteAxios
       .get(`/items/${productId}`)
@@ -93,15 +78,25 @@ const Producto = (props: any) => {
     clienteAxios
       .get(`/questions/?item_id=${productId}`)
       .then((res) => {
-        console.log(res.data);
         setQuestions(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-      setTime()
-      
-  }, []);
+
+    const getTodayDate = dayjs(new Date());
+    const now = dayjs(getTodayDate);
+
+    const productOfferExpires = dayjs(products.offer.expires_at);
+
+    const productHour = productOfferExpires.diff(getTodayDate, "minute");
+    const productSecond = productOfferExpires.diff(getTodayDate, "second");
+    if(productHour!==NaN){
+      setHour(productHour);
+    }else{console.log('error')}
+    
+   
+  }, [hour]);
 
   let images: any = [];
   const newImagesArray = products.images.forEach((image) =>
@@ -160,10 +155,13 @@ const Producto = (props: any) => {
                     <span>{products.currency}</span>
                     {products.offer.price}
                   </p>
-                  <p>esta oferta termina en {seconds} segundos</p>
+                  <p>esta oferta termina en {hour} horas.</p>
                 </div>
               ) : (
-                <p><span>{products.currency}</span>{products.price} </p>
+                <p>
+                  <span>{products.currency}</span>
+                  {products.price}{" "}
+                </p>
               )}
               <button>Comprar ahora</button>
             </div>

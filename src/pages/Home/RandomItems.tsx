@@ -1,6 +1,6 @@
 import React from "react";
 const RandomItems = (shuffleItem: any) => {
-  console.log(shuffleItem);
+  
   function toProductDetail() {
     const productId = shuffleItem.id;
     shuffleItem.props.history.push(`/producto/${productId}`);
