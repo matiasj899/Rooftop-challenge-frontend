@@ -11,12 +11,29 @@ const RandomItems = (shuffleItem: any) => {
       <div>
         <h2>{shuffleItem.title}</h2>
         {shuffleItem.offer !== null ? (
+                <>
+                  <p className="before-price">
+                    <span>{shuffleItem.currency}</span>
+                    {shuffleItem.price}
+                  </p>
+                  <p className="sale-price">
+                    <span>{shuffleItem.currency}</span>
+                    {shuffleItem.offer.price}
+                  </p>
+                 
+                </>
+              ) : (
+                <p> <span>{shuffleItem.currency}</span>{shuffleItem.price} </p>
+              )}
+
+
+        {/*shuffleItem.offer !== null ? (
           <p>{shuffleItem.currency + shuffleItem.offer.price}</p>
         ) : (
           <p className="sale-price">
             {shuffleItem.currency + shuffleItem.price}
           </p>
-        )}
+        )*/}
       </div>
     </div>
   );

@@ -163,7 +163,7 @@ const Producto = (props: any) => {
                   <p>esta oferta termina en {seconds} segundos</p>
                 </div>
               ) : (
-                <p>{products.price} </p>
+                <p><span>{products.currency}</span>{products.price} </p>
               )}
               <button>Comprar ahora</button>
             </div>

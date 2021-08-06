@@ -4,7 +4,8 @@ const Header = () => {
   return (
     <header id="header-cn">
       <div className="logo-cn">
-        <img src="./images/rooftop-logo@2x.webp" alt="logo"></img>
+        
+        <img src="/images/rooftop-logo@2x.webp" alt="logo"></img>
       </div>
       <nav>
         <ul>
