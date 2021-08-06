@@ -4,8 +4,13 @@ import Header from "../../components/Header";
 
 import ImageGallery from "react-image-gallery";
 import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import "./Producto.css";
 import Footer from "../../components/Footer";
+
+dayjs.extend(relativeTime);
+
 const Producto = (props: any) => {
   const productId = props.match.params.id;
   const Product = {
@@ -15,7 +20,7 @@ const Producto = (props: any) => {
     features: [{ key: "", name: "", value: "" }],
     title: "",
     price: "",
-    offer: { price: null },
+    offer: { price: null, expires_at: "" },
   };
   const Question = [
     {
@@ -30,6 +35,8 @@ const Producto = (props: any) => {
   const [questions, setQuestions] = useState(Question);
   const [inputError, setInputError] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [seconds, setSeconds] = useState(Number);
   const {
     register,
     handleSubmit,
@@ -48,12 +55,36 @@ const Producto = (props: any) => {
           }, 2000);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error) {
+          setErrorMessage(true);
+          setTimeout(() => {
+            setErrorMessage(false);
+          }, 2000);
+        }
+      });
   };
+  async function  setTime(){
+    if(products.offer!==null){
+  
+      const getTodayDate=await dayjs(new Date())
+    const now=await dayjs(getTodayDate)
+    
+    const productOfferExpires=await dayjs(products.offer.expires_at)
+    
+    const hour= await productOfferExpires.diff(getTodayDate,'hour')
+    const second=await productOfferExpires.diff(getTodayDate,'second')
+    console.log(second)
+    
+    
+  
+    }
+  }
   useEffect(() => {
     clienteAxios
       .get(`/items/${productId}`)
       .then((res) => {
+        console.log(res);
         setProducts({ ...Product, ...res.data });
       })
       .catch((error) => {
@@ -68,6 +99,8 @@ const Producto = (props: any) => {
       .catch((error) => {
         console.log(error);
       });
+      setTime()
+      
   }, []);
 
   let images: any = [];
@@ -127,6 +160,7 @@ const Producto = (props: any) => {
                     <span>{products.currency}</span>
                     {products.offer.price}
                   </p>
+                  <p>esta oferta termina en {seconds} segundos</p>
                 </div>
               ) : (
                 <p>{products.price} </p>
@@ -149,7 +183,7 @@ const Producto = (props: any) => {
                   className={errors.email ? "error" : ""}
                   type="email"
                   {...register("email", { required: true })}
-                  placeholder='example@.com'
+                  placeholder="example@.com"
                 ></input>
                 {errors.email && (
                   <p className="error">Ingrese un email valido.</p>
@@ -182,6 +216,15 @@ const Producto = (props: any) => {
               <div className="success-general-cn">
                 <div className="successMessage">
                   <p>Pregunta enviada correctamente.</p>
+                </div>
+              </div>
+            ) : null}
+            {errorMessage ? (
+              <div className="error-general-cn">
+                <div className="errorMessage">
+                  <p>
+                    Algo a salido mal, recarga la pagina y vuelve a intentarlo.
+                  </p>
                 </div>
               </div>
             ) : null}
