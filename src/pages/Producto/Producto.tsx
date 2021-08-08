@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "./Producto.css";
 import Footer from "../../components/Footer";
+import CountDown from './CountDown';
 
 dayjs.extend(relativeTime);
 
@@ -36,13 +37,39 @@ const Producto = (props: any) => {
   const [inputError, setInputError] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-  const [hour, setHour] = useState(Number);
+  const [hour,setHour]=useState(0)
+  const [minute,setMinutes]=useState(0)
+  const [second,setSeconds]=useState(0)
+ 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+if(products.offer!==null ){
+  const interval = setInterval(() => {
+    const getTodayDate = dayjs(new Date());
+const now = dayjs(getTodayDate)
+
+
+const productExpires=dayjs(products.offer.expires_at)
+
+    const productHour = productExpires.diff( Number(getTodayDate), "hour");
+    const productMinutes = productExpires.diff( Number(getTodayDate), "minute");
+    const productSeconds = productExpires.diff( Number(getTodayDate), "second");
+    setHour(Number(productSeconds))
+    setMinutes(productMinutes)
+    setSeconds(productSeconds)
+    
+    
+  
+    
+  }, 1000);
+  
+  }
+  
+
   const onSubmit = (data: object) => {
     clienteAxios
       .post("/questions", data)
@@ -69,8 +96,10 @@ const Producto = (props: any) => {
     clienteAxios
       .get(`/items/${productId}`)
       .then((res) => {
-        console.log(res);
+        
         setProducts({ ...Product, ...res.data });
+        
+      
       })
       .catch((error) => {
         console.log(error);
@@ -84,19 +113,9 @@ const Producto = (props: any) => {
         console.log(error);
       });
 
-    const getTodayDate = dayjs(new Date());
-    const now = dayjs(getTodayDate);
-
-    const productOfferExpires = dayjs(products.offer.expires_at);
-
-    const productHour = productOfferExpires.diff(getTodayDate, "minute");
-    const productSecond = productOfferExpires.diff(getTodayDate, "second");
-    if(productHour!==NaN){
-      setHour(productHour);
-    }else{console.log('error')}
-    
+      
    
-  }, [hour]);
+  }, []);
 
   let images: any = [];
   const newImagesArray = products.images.forEach((image) =>
@@ -129,7 +148,9 @@ const Producto = (props: any) => {
       </div>
     );
   });
+ 
 
+  
   return (
     <>
       <Header></Header>
@@ -146,7 +167,7 @@ const Producto = (props: any) => {
             <div className="productDetail-info-cn">
               <h2>{products.title}</h2>
               {products.offer !== null ? (
-                <div>
+                <div className="prices-cn">
                   <p className="before-price">
                     <span>{products.currency}</span>
                     {products.price}
@@ -155,7 +176,8 @@ const Producto = (props: any) => {
                     <span>{products.currency}</span>
                     {products.offer.price}
                   </p>
-                  <p>esta oferta termina en {hour} horas.</p>
+                  <CountDown hour={hour} minute={minute} second={second}></CountDown>
+                 
                 </div>
               ) : (
                 <p>
@@ -163,7 +185,7 @@ const Producto = (props: any) => {
                   {products.price}{" "}
                 </p>
               )}
-              <button>Comprar ahora</button>
+              <button className='blue-btn buy'>Comprar ahora</button>
             </div>
           </div>
           <div className="features-cn">
@@ -207,13 +229,13 @@ const Producto = (props: any) => {
                     </p>
                   )}
                 </label>
-                <button type="submit">Enviar</button>
+                <button className='blue-btn' type="submit">Enviar</button>
               </div>
             </form>
             {successMessage ? (
               <div className="success-general-cn">
                 <div className="successMessage">
-                  <p>Pregunta enviada correctamente.</p>
+                  <p className="sucessfull-send">Pregunta enviada correctamente.</p>
                 </div>
               </div>
             ) : null}
