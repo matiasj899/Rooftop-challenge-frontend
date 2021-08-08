@@ -172,7 +172,7 @@ const productExpires=dayjs(products.offer.expires_at)
                     <span>{products.currency}</span>
                     {products.price}
                   </p>
-                  <p className="sale-price">
+                  <p className="sale-price product-detail">
                     <span>{products.currency}</span>
                     {products.offer.price}
                   </p>
@@ -180,12 +180,20 @@ const productExpires=dayjs(products.offer.expires_at)
                  
                 </div>
               ) : (
-                <p>
+                <p className="no-offer-price">
                   <span>{products.currency}</span>
                   {products.price}{" "}
                 </p>
               )}
+              <div>
+              <h4>Devolucion gratis</h4>
+              <p>Tenés 30 días desde que lo recibís.</p>
+              </div>
+              
+              <h5>Stock disponible</h5>
+              <h5>Cantidad:1 unidad</h5>
               <button className='blue-btn buy'>Comprar ahora</button>
+              <button className='blue-btn add-car'>Agregar al carrito</button>
             </div>
           </div>
           <div className="features-cn">

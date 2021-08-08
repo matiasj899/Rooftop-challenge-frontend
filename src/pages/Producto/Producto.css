@@ -25,15 +25,24 @@
   border-radius: 5px;
   flex-direction: column;
   padding: 20px;
-  
+  justify-content: space-between;
 } 
-
+#productDetail-cn .productDetail-img-info-cn .productDetail-info-cn .no-offer-price{
+  font-size: x-large;
+} 
+.prices-cn p{
+  margin-top: 5px;
+}
 .before-price{
     text-decoration: line-through;
 }
 .sale-price{
     color: seagreen;
-    font-size: x-large;
+    
+}
+.sale-price.product-detail{
+
+  font-size: x-large;
 }
 .countdown{
   width: 250px;
@@ -143,6 +152,10 @@ table {
  .blue-btn.buy{
 width: 100%;
  }
+ .blue-btn.add-car{
+  width: 100%;
+  background-color: rgba(65,137,230,.15);
+   }
  .questions-cn .textArea-and-btn button:hover{
   background-color: #2766c5;
  

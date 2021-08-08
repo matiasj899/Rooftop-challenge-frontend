@@ -6,28 +6,28 @@ const CountDown = (props: any) => {
   const [fullTime, setFullTime] = useState("0");
   function secondsToHms(d: number) {
     d = Number(d);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor((d % 3600) / 60);
-    var s = Math.floor((d % 3600) % 60);
+    const hours = Math.floor(d / 3600);
+    const minutes = Math.floor((d % 3600) / 60);
+    const seconds = Math.floor((d % 3600) % 60);
 
-    var hDisplay = h > 0 ? h + (h == 1 ? "" : "") : "0";
-    var mDisplay = m > 0 ? m + (m == 1 ? "" : "") : "0";
-    var sDisplay = s > 0 ? s + (s == 1 ? "" : "") : "0";
+    const hoursDisplay = hours > 0 ? hours + (hours == 1 ? "" : "") : "0";
+    const minutesDisplay = minutes > 0 ? minutes + (minutes == 1 ? "" : "") : "0";
+    const secondsDisplay = seconds > 0 ? seconds + (seconds == 1 ? "" : "") : "0";
 
-    return { hDisplay, mDisplay, sDisplay };
+    return { hoursDisplay, minutesDisplay, secondsDisplay };
   }
   useEffect(() => {
     const seconds = secondsToHms(props.second);
-    setHour(seconds.hDisplay);
-    setMinutes(seconds.mDisplay);
-    setSeconds(seconds.sDisplay);
+    setHour(seconds.hoursDisplay);
+    setMinutes(seconds.minutesDisplay);
+    setSeconds(seconds.secondsDisplay);
   }, [props.second]);
 
   return (
-    <p className='countdown'>
+    <h4 className='countdown'>
       Esta oferta finaliza en <span>{hour}</span>:<span>{minute}</span>:
       <span>{second}</span>{" "}
-    </p>
+    </h4>
   );
 };
 export default CountDown;
