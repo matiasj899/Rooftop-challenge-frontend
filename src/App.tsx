@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Catalogo from "./pages/Catalogo/Catalogo";
 import Producto from "./pages/Producto/Producto";
 import "./App.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function App() {
   return (

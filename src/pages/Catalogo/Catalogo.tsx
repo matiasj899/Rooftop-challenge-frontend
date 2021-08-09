@@ -4,6 +4,7 @@ import RandomItems from "../Home/RandomItems";
 import clienteAxios from "../../config/axios";
 import Footer from "../../components/Footer";
 import "./Catalogo.css";
+import Loader from "react-loader-spinner";
 
 const Catalogo = (props: any) => {
   interface Product {
@@ -12,14 +13,18 @@ const Catalogo = (props: any) => {
     images: [];
   }
   const [product, setProduct] = useState<Product[]>([]);
+  const [spinner, setSpinner] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   useEffect(() => {
     clienteAxios
       .get("/items")
       .then((res) => {
         setProduct(res.data.items);
+        setSpinner(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoadError(true);
       });
   }, []);
 
@@ -57,38 +62,48 @@ const Catalogo = (props: any) => {
   return (
     <>
       <Header></Header>
-      <h1 id="products-h1">Catalogo</h1>
-      <div className="items-cn">{showItems}</div>
-      <div id="buttons-cn">
-        {currentPage === 0 ? null : (
-          <button className="next-and-prev-btn" onClick={prevPage}>
-            <span className="prevPage-icon"></span>
-            Anterior
-          </button>
-        )}
-        {limitArray.map((eachNumber) => {
-          return (
-            <button
-              className={
-                currentPage === eachNumber
-                  ? "page-number active-btn"
-                  : "page-number"
-              }
-              key={eachNumber}
-              value={Number(eachNumber)}
-              onClick={changePageByNumber}
-            >
-              {eachNumber + 1}
-            </button>
-          );
-        })}
-        {currentPage === limitArray.length - 1 ? null : (
-          <button className="next-and-prev-btn" onClick={nextPage}>
-            Siguiente
-            <span className="nextPage-icon"></span>
-          </button>
-        )}
-      </div>
+      {spinner ? (
+        <div className="spinner-cn">
+ <Loader type="Circles" color="#ff642ac7" height={80} width={80} />
+        </div>
+       
+      ) : (
+        <>
+          <h1 id="products-h1">Catalogo</h1>
+          <div className="items-cn">{showItems}</div>
+          <div id="buttons-cn">
+            {currentPage === 0 ? null : (
+              <button className="next-and-prev-btn" onClick={prevPage}>
+                <span className="prevPage-icon"></span>
+                Anterior
+              </button>
+            )}
+            {limitArray.map((eachNumber) => {
+              return (
+                <button
+                  className={
+                    currentPage === eachNumber
+                      ? "page-number active-btn"
+                      : "page-number"
+                  }
+                  key={eachNumber}
+                  value={Number(eachNumber)}
+                  onClick={changePageByNumber}
+                >
+                  {eachNumber + 1}
+                </button>
+              );
+            })}
+            {currentPage === limitArray.length - 1 ? null : (
+              <button className="next-and-prev-btn" onClick={nextPage}>
+                Siguiente
+                <span className="nextPage-icon"></span>
+              </button>
+            )}
+          </div>
+        </>
+      )}
+    {loadError?<p className='loadError'>Algo ha salido mal, recarga la pagina.</p>:null}
       <Footer></Footer>
     </>
   );

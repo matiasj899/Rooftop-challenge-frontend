@@ -9,6 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "./Producto.css";
 import Footer from "../../components/Footer";
 import CountDown from './CountDown';
+import Loader from "react-loader-spinner";
 
 dayjs.extend(relativeTime);
 
@@ -40,6 +41,8 @@ const Producto = (props: any) => {
   const [hour,setHour]=useState(0)
   const [minute,setMinutes]=useState(0)
   const [second,setSeconds]=useState(0)
+  const [spinner, setSpinner] = useState(true);
+  const [loadError, setLoadError] = useState(false);
  
   const {
     register,
@@ -98,12 +101,14 @@ const productExpires=dayjs(products.offer.expires_at)
     .get(`/items/${productId}`)
     .then((res) => {
       
+
       setProducts({ ...Product, ...res.data });
+      setSpinner(false);
       
     
     })
     .catch((error) => {
-      console.log(error);
+      setLoadError(true);
     });
   clienteAxios
     .get(`/questions/?item_id=${productId}`) 
@@ -156,7 +161,9 @@ const productExpires=dayjs(products.offer.expires_at)
   return (
     <>
       <Header></Header>
-      <div id="productDetail-cn">
+      {spinner?<div className="spinner-cn">
+ <Loader type="Circles" color="#ff642ac7" height={80} width={80} />
+        </div>: <div id="productDetail-cn">
         <div className="productDetail-img-info-cn">
           <div className="imageGallery-cn">
             <ImageGallery
@@ -270,7 +277,8 @@ const productExpires=dayjs(products.offer.expires_at)
             </div>
           </div>
         </div>
-      </div>
+      </div>}
+      {loadError?<p className='loadError'>Algo ha salido mal, recarga la pagina.</p>:null}
       <Footer></Footer>
     </>
   );
