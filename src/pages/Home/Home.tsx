@@ -4,7 +4,7 @@ import clienteAxios from "../../config/axios";
 
 import Header from "../../components/Header";
 import Banner from "./Banner";
-import _, { shuffle } from "underscore";
+import _ from "underscore";
 import RandomItems from "./RandomItems";
 import Footer from "../../components/Footer";
 const Home = (props: any) => {

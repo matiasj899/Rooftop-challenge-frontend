@@ -7,7 +7,7 @@ const RandomItems = (shuffleItem: any) => {
   }
   return (
     <div className="randomItems" onClick={toProductDetail}>
-      <img src={shuffleItem.images[0]}></img>
+      <img src={shuffleItem.images[0]} alt={shuffleItem.title}></img>
       <div>
         <h2>{shuffleItem.title}</h2>
         {shuffleItem.offer !== null ? (

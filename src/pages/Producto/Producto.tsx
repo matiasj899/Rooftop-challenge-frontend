@@ -34,7 +34,7 @@ const Producto = (props: any) => {
 
   const [products, setProducts] = useState(Product);
   const [questions, setQuestions] = useState(Question);
-  const [inputError, setInputError] = useState("");
+  
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [hour,setHour]=useState(0)
@@ -48,14 +48,14 @@ const Producto = (props: any) => {
     formState: { errors },
   } = useForm();
 if(products.offer!==null ){
-  const interval = setInterval(() => {
+setInterval(() => {
     const getTodayDate = dayjs(new Date());
-const now = dayjs(getTodayDate)
+
 
 
 const productExpires=dayjs(products.offer.expires_at)
 
-    const productHour = productExpires.diff( Number(getTodayDate), "hour");
+    
     const productMinutes = productExpires.diff( Number(getTodayDate), "minute");
     const productSeconds = productExpires.diff( Number(getTodayDate), "second");
     setHour(Number(productSeconds))
@@ -93,32 +93,34 @@ const productExpires=dayjs(products.offer.expires_at)
   };
 
   useEffect(() => {
+   function getData(){
     clienteAxios
-      .get(`/items/${productId}`)
-      .then((res) => {
-        
-        setProducts({ ...Product, ...res.data });
-        
+    .get(`/items/${productId}`)
+    .then((res) => {
       
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    clienteAxios
-      .get(`/questions/?item_id=${productId}`)
-      .then((res) => {
-        setQuestions(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      setProducts({ ...Product, ...res.data });
+      
+    
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  clienteAxios
+    .get(`/questions/?item_id=${productId}`) 
+    .then((res) => {
+      setQuestions(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+   }
 
       
-   
-  }, []);
+   getData()
+  }, [productId]); 
 
   let images: any = [];
-  const newImagesArray = products.images.forEach((image) =>
+   products.images.forEach((image) =>
     images.push({ original: image })
   );
   const features = products.features.map((feature) => {
@@ -139,7 +141,7 @@ const productExpires=dayjs(products.offer.expires_at)
         <div className="user-answer">
           <div className="user-answer-icon-cn">
             {" "}
-            <img src="/images/caret-right-solid.svg"></img>
+            <img src="/images/caret-right-solid.svg" alt='caret-icon'></img>
           </div>
           <p>
             {question.answer} <span className="date">{date}</span>

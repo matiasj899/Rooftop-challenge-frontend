@@ -45,7 +45,8 @@
   font-size: x-large;
 }
 .countdown{
-  width: 250px;
+  width: 270px;
+  font-size: small;
 }
 .features-cn, .questions-cn{
     font-family: 'Mulish', sans-serif;
