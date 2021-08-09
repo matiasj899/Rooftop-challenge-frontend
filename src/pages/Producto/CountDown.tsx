@@ -12,7 +12,7 @@ const CountDown = (props: any) => {
     const minutes = Math.floor((d % 3600) / 60);
     const seconds = Math.floor((d % 3600) % 60);
 
-    const daysDisplay = days > 0 ? days + (days === 1 ? "" : "") : "0";
+    const daysDisplay = days > 0 ? days.toString() : "0";
 
     const hoursDisplay = hours > 0 ? hours.toString() : "0";
     const minutesDisplay = minutes > 0 ? minutes.toString() : "0";
