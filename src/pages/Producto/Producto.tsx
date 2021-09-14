@@ -101,7 +101,7 @@ const productExpires=dayjs(products.offer.expires_at)
     .get(`/items/${productId}`)
     .then((res) => {
       
-
+console.log(res)
       setProducts({ ...Product, ...res.data });
       setSpinner(false);
       

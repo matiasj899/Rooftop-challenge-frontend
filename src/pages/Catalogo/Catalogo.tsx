@@ -48,8 +48,10 @@ const Catalogo = (props: any) => {
 
   if (currentPage > 0) {
     const start = currentPage * 5;
+    console.log(start)
     const end = start + 5;
     page = product.slice(start, end);
+    console.log(page)
   }
   const showItems = page.map((productData) => {
     const itemId = productData.id.toString();
