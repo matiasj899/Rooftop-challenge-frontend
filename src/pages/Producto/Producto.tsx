@@ -101,7 +101,7 @@ const productExpires=dayjs(products.offer.expires_at)
     .get(`/items/${productId}`)
     .then((res) => {
       
-console.log(res)
+
       setProducts({ ...Product, ...res.data });
       setSpinner(false);
       
@@ -126,7 +126,7 @@ console.log(res)
 
   let images: any = [];
    products.images.forEach((image) =>
-    images.push({ original: image })
+    images.push({ original: 'https://placeimg.com/640/480' })
   );
   const features = products.features.map((feature) => {
     return (
